@@ -13,17 +13,9 @@ fun main() {
     print("초단위를 입력하세요 (밀리세컨즈) -> ")
     val timeUnitValue = readLine()
 
-    val observable2 = Observable.range(0, firstTime!!.toInt())
-//    Observable.interval(timeUnitValue?.toLong() ?: 1, TimeUnit.MILLISECONDS)
-//            .zipWith(observable2) {
-//                t1: Long, t2: Iterable<Int> ->
-//                t1
-//            }
-//            .scan { t1: Long, t2: Long ->
-//                println("t1 -> $t1,,,,, t2 -> $t2")
-//                t1
-//            }
-    Observable.interval(timeUnitValue?.toLong() ?: 1, TimeUnit.MILLISECONDS)
+    val observable2 = Observable.fromIterable(1..firstTime!!.toInt())
+
+    Observable.interval(1, timeUnitValue?.toLong() ?: 1, TimeUnit.MILLISECONDS)
             .zipWith(observable2) { t1: Long, t2: Int ->
                 println("t1 -> $t1,,,,, t2 -> $t2 In ZipWith")
                 t1.toDouble().pow(t2)
@@ -35,6 +27,7 @@ fun main() {
             }, {
                 it.printStackTrace()
             })
+
 
 
     Thread.sleep(9000)
